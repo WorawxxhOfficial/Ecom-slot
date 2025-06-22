@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> CONTENT | E-COMMERCE WEBSITE BY EDYODA </title>
-    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <title>Shop Online - Fashion & Accessories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- favicon -->
     <link rel="icon" href="https://yt3.ggpht.com/a/AGF-l78km1YyNXmF0r3-0CycCA0HLA_i6zYn_8NZEg=s900-c-k-c0xffffffff-no-rj-mo" type="image/gif" sizes="16x16">
 
@@ -13,18 +13,73 @@
 
 </head>
 <body>
-    <div id="mainContainer">
+    <div id="header"></div>
+    
+    <main id="mainContainer">
+        <!-- Category Navigation -->
+        <nav class="category-nav">
+            <ul>
+                <li><a href="#" data-category="all" class="active">All Products</a></li>
+                <li><a href="#" data-category="mens-clothing">Men's Clothing</a></li>
+                <li><a href="#" data-category="womens-clothing">Women's Clothing</a></li>
+                <li><a href="#" data-category="shoes">Shoes</a></li>
+                <li><a href="#" data-category="accessories">Accessories</a></li>
+            </ul>
+        </nav>
 
-        <h1> clothing for men and women </h1>
-        <div id="containerClothing">
-            <!-- JS rendered code -->
+        <!-- Product Grid -->
+        <div class="products-grid">
+            <!-- Products will be loaded here -->
+            <div class="loading">Loading products...</div>
         </div>
 
-        <h1> accessories for men and women </h1>
-        <div id="containerAccessories">
-            <!-- JS rendered code -->
+        <!-- Product Modal -->
+        <div id="productModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="product-details">
+                    <div class="product-image-large">
+                        <img src="" alt="" id="modalProductImage">
+                    </div>
+                    <div class="product-info-detailed">
+                        <h2 id="modalProductName"></h2>
+                        <p class="brand" id="modalProductBrand"></p>
+                        <p class="price">Rs. <span id="modalProductPrice"></span></p>
+                        <div class="quantity-selector">
+                            <label for="quantity">Quantity:</label>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" id="quantity" value="1" min="1" max="10">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                        <button class="buy-now-btn">Buy Now</button>
+                        <div class="product-description">
+                            <h3>Product Details</h3>
+                            <p id="modalProductDescription"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <!-- Message container for notifications -->
+    <div id="messageContainer"></div>
+
+    <script src="js/jQuery3.4.1.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/init-data.js"></script>
+    <script src="content.js"></script>
+    <script>
+        // Load header and footer
+        $(document).ready(function() {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
 </body>
-<script src="content.js"></script>
 </html>
