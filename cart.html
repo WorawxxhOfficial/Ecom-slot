@@ -11,7 +11,31 @@
     <!-- header links -->
     <script src="https://kit.fontawesome.com/4a3b1f73a2.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-
+    <style>
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .quantity-btn {
+            padding: 5px 10px;
+            cursor: pointer;
+            background: #009688;
+            color: white;
+            border: none;
+            border-radius: 3px;
+        }
+        .remove-btn {
+            padding: 5px 10px;
+            cursor: pointer;
+            background: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
         <!-- HEADER -->
@@ -51,5 +75,5 @@
             document.getElementById(4).innerHTML = req.responseText;
         }
     </script>
-<script src="/cart.js"></script>
+<script src="cart.js"></script>
 </html>

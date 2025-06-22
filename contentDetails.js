@@ -3,11 +3,53 @@ console.clear()
 let id = location.search.split('?')[1]
 console.log(id)
 
-if(document.cookie.indexOf(',counter=')>=0)
-{
-    let counter = document.cookie.split(',')[1].split('=')[1]
-    document.getElementById("badge").innerHTML = counter
+// Initialize cart badge
+function updateCartBadge() {
+    try {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const totalQuantity = cartItems.reduce((total, item) => total + (item.quantity || 0), 0);
+        const badge = document.getElementById("badge");
+        if (badge) {
+            badge.innerHTML = totalQuantity || '0';
+        }
+    } catch (error) {
+        console.error('Error updating cart badge:', error);
+        const badge = document.getElementById("badge");
+        if (badge) {
+            badge.innerHTML = '0';
+        }
+    }
 }
+
+// Add item to cart
+function addToCart(productId) {
+    try {
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        
+        // Find if item already exists
+        const existingItem = cartItems.find(item => item.productId === productId);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cartItems.push({
+                productId: productId,
+                quantity: 1
+            });
+        }
+        
+        // Save updated cart
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        
+        // Update badge
+        updateCartBadge();
+    } catch (error) {
+        console.error('Error adding to cart:', error);
+    }
+}
+
+// Update cart badge on page load
+updateCartBadge();
 
 function dynamicContentDetails(ob)
 {
@@ -43,7 +85,7 @@ function dynamicContentDetails(ob)
     detailsDiv.id = 'details'
 
     let h3DetailsDiv = document.createElement('h3')
-    let h3DetailsText = document.createTextNode('Rs ' + ob.price)
+    let h3DetailsText = document.createTextNode('THB ' + ob.price)
     h3DetailsDiv.appendChild(h3DetailsText)
 
     let h3 = document.createElement('h3')
@@ -84,22 +126,13 @@ function dynamicContentDetails(ob)
     let buttonTag = document.createElement('button')
     buttonDiv.appendChild(buttonTag)
 
-    buttonText = document.createTextNode('Add to Cart')
-    buttonTag.onclick  =   function()
-    {
-        let order = id+" "
-        let counter = 1
-        if(document.cookie.indexOf(',counter=')>=0)
-        {
-            order = id + " " + document.cookie.split(',')[0].split('=')[1]
-            counter = Number(document.cookie.split(',')[1].split('=')[1]) + 1
-        }
-        document.cookie = "orderId=" + order + ",counter=" + counter
-        document.getElementById("badge").innerHTML = counter
-        console.log(document.cookie)
-    }
+    let buttonText = document.createTextNode('Add to Cart')
     buttonTag.appendChild(buttonText)
 
+    // Add to cart click handler
+    buttonTag.onclick = function() {
+        addToCart(ob.id);
+    }
 
     console.log(mainContainer.appendChild(imageSectionDiv));
     mainContainer.appendChild(imageSectionDiv)
@@ -143,5 +176,5 @@ let httpRequest = new XMLHttpRequest()
     }
 }
 
-httpRequest.open('GET', 'https://5d76bf96515d1a0014085cf9.mockapi.io/product/'+id, true)
+httpRequest.open('GET', 'http://localhost:3000/api/products/'+id, true)
 httpRequest.send()  
