@@ -4,12 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MALLY - Product Detail</title>
-    <link rel="stylesheet" href="../../assets/css/header.css">
-    <link rel="stylesheet" href="../../assets/css/footer.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .main-container {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .header-content {
             max-width: 1200px;
             margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            margin: 0 20px;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff3e6c;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #ff3e6c;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-icon {
+            position: relative;
+            text-decoration: none;
+            color: #333;
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .cart-icon:hover {
+            background-color: #f5f5f5;
+        }
+
+        #cartCount {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff3e6c;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        #loginStatus {
+            text-decoration: none;
+            color: #333;
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        #loginStatus:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Product Detail Styles */
+        .main-container {
+            max-width: 1200px;
+            margin: 80px auto 0;
             padding: 40px 20px;
         }
 
@@ -22,7 +150,7 @@
 
         .product-images {
             position: sticky;
-            top: 20px;
+            top: 100px; /* Adjusted for fixed header */
         }
 
         .product-image {
@@ -169,8 +297,13 @@
                         <input type="text" id="searchInput" placeholder="Search for products...">
                     </div>
                     <div class="user-actions">
-                        <a href="cart.html" class="cart-icon">Cart <span id="cartCount">0</span></a>
-                        <a href="#" id="loginStatus">Login</a>
+                        <a href="cart.html" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount">0</span>
+                        </a>
+                        <a href="#" id="loginStatus">
+                            <i class="fas fa-user"></i>
+                        </a>
                     </div>
                 </div>
             </header>
@@ -210,9 +343,16 @@
         // Update cart count
         function updateCartCount() {
             const cart = DB.getCart();
-            document.getElementById('cartCount').textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
         }
         updateCartCount();
+
+        // Add search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
+        });
 
         // Get product ID from URL
         const urlParams = new URLSearchParams(window.location.search);
