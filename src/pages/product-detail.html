@@ -96,17 +96,19 @@
                 return;
             }
 
-            // Generate additional images
+            // Use additional images if available, otherwise generate them
             const baseImagePath = product.image.substring(0, product.image.lastIndexOf('/') + 1);
             const imageNumber = product.image.substring(product.image.lastIndexOf('img') + 3, product.image.lastIndexOf('.'));
             const imageExt = product.image.substring(product.image.lastIndexOf('.'));
             
-            const additionalImages = [
-                product.image,
-                `${baseImagePath}img${(parseInt(imageNumber) % 4) + 1}${imageExt}`,
-                `${baseImagePath}img${((parseInt(imageNumber) + 1) % 4) + 1}${imageExt}`,
-                `${baseImagePath}img${((parseInt(imageNumber) + 2) % 4) + 1}${imageExt}`
-            ];
+            const additionalImages = product.additionalImages 
+                ? [product.image, ...product.additionalImages]
+                : [
+                    product.image,
+                    `${baseImagePath}img${(parseInt(imageNumber) % 4) + 1}${imageExt}`,
+                    `${baseImagePath}img${((parseInt(imageNumber) + 1) % 4) + 1}${imageExt}`,
+                    `${baseImagePath}img${((parseInt(imageNumber) + 2) % 4) + 1}${imageExt}`
+                ];
 
             const container = document.getElementById('productDetail');
             

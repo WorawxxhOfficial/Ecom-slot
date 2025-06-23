@@ -12,6 +12,11 @@ const DB = {
                     price: 590,
                     category: "Men Clothing",
                     image: "/assets/images/men/img1.png",
+                    additionalImages: [
+                        "/assets/images/men/img2.png",
+                        "/assets/images/men/img3.png",
+                        "/assets/images/men/img4.png"
+                    ],
                     description: "Classic crew neck t-shirt made from 100% soft cotton. Perfect for everyday wear with a comfortable regular fit.",
                     sizes: ["S", "M", "L", "XL"],
                     availableSizes: ["S", "M", "L", "XL"]
