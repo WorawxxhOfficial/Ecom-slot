@@ -287,7 +287,8 @@
         // Add to cart
         function addToCart() {
             if (!currentUser) {
-                alert('Please login to add items to cart');
+                // Store current URL before redirecting
+                localStorage.setItem('returnPath', window.location.href);
                 window.location.href = 'auth.html';
                 return;
             }

@@ -322,8 +322,16 @@
     <script src="../js/content.js"></script>
     <script src="../js/database.js"></script>
     <script>
+        // Save current user and cart data
+        const savedUser = localStorage.getItem('currentUser');
+        const savedCart = localStorage.getItem('cart');
+        
         // Clear localStorage to force database refresh
         localStorage.clear();
+        
+        // Restore user and cart data
+        if (savedUser) localStorage.setItem('currentUser', savedUser);
+        if (savedCart) localStorage.setItem('cart', savedCart);
         
         // Initialize database first
         DB.init();
