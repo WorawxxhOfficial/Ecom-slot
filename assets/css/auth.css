@@ -1,0 +1,98 @@
+/* Auth Container */
+.auth-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.auth-title {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form Styles */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.form-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus {
+    border-color: #ff3e6c;
+    outline: none;
+}
+
+/* Button Styles */
+.auth-button {
+    padding: 12px;
+    background: #ff3e6c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.auth-button:hover {
+    background: #ff1f54;
+}
+
+/* Toggle Links */
+.auth-toggle {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.auth-toggle a {
+    color: #ff3e6c;
+    text-decoration: none;
+}
+
+.auth-toggle a:hover {
+    text-decoration: underline;
+}
+
+/* Error Message */
+.error-message {
+    color: #ff3e6c;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+}
+
+/* Success Message */
+.success-message {
+    color: #2ecc71;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+} 
