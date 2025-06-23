@@ -142,66 +142,106 @@
         }
 
         .product-detail {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 60px;
+            display: flex;
+            gap: 40px;
+            padding: 20px;
         }
 
         .product-images {
-            position: sticky;
-            top: 100px; /* Adjusted for fixed header */
+            flex: 1;
+            display: flex;
+            gap: 20px;
         }
 
-        .product-image {
-            width: 100%;
-            aspect-ratio: 3/4;
+        .thumbnail-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
             object-fit: cover;
-            border-radius: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .thumbnail:hover {
+            transform: translateY(-2px);
+        }
+
+        .thumbnail.active {
+            border-color: #ff3e6c;
+        }
+
+        .main-image-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: zoom-in;
+        }
+
+        .magnifier {
+            display: none;
+            position: absolute;
+            pointer-events: none;
+            width: 150px;
+            height: 150px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.3);
         }
 
         .product-info {
-            padding: 20px 0;
+            flex: 1;
+            padding: 20px;
         }
 
         .product-brand {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333;
+            font-size: 18px;
+            color: #666;
             margin-bottom: 10px;
         }
 
         .product-name {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.5;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
         }
 
         .product-price {
-            font-size: 32px;
+            font-size: 24px;
+            color: #ff3e6c;
             font-weight: bold;
-            color: #333;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .product-description {
-            font-size: 16px;
             color: #666;
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .size-section {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .size-label {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 15px;
             display: block;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
         }
 
         .size-options {
@@ -211,15 +251,12 @@
         }
 
         .size-btn {
-            min-width: 60px;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             background: white;
             cursor: pointer;
-            font-size: 14px;
             transition: all 0.3s;
-            text-align: center;
         }
 
         .size-btn:hover:not(.disabled) {
@@ -236,25 +273,22 @@
         .size-btn.disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            background: #f5f5f5;
         }
 
         .add-to-cart {
             width: 100%;
-            padding: 16px;
+            padding: 15px;
             background: #ff3e6c;
             color: white;
             border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
+            border-radius: 4px;
             font-size: 16px;
-            font-weight: 500;
-            margin-top: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
         }
 
         .add-to-cart:hover:not(:disabled) {
-            background: #ff527b;
+            background: #ff1f54;
         }
 
         .add-to-cart:disabled {
@@ -266,18 +300,6 @@
             color: #ff3e6c;
             margin-top: 10px;
             display: none;
-            font-size: 14px;
-        }
-
-        @media (max-width: 900px) {
-            .product-detail {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .product-images {
-                position: static;
-            }
         }
     </style>
 </head>
@@ -366,6 +388,18 @@
                 return;
             }
 
+            // Generate additional images
+            const baseImagePath = product.image.substring(0, product.image.lastIndexOf('/') + 1);
+            const imageNumber = product.image.substring(product.image.lastIndexOf('img') + 3, product.image.lastIndexOf('.'));
+            const imageExt = product.image.substring(product.image.lastIndexOf('.'));
+            
+            const additionalImages = [
+                product.image,
+                `${baseImagePath}img${(parseInt(imageNumber) % 4) + 1}${imageExt}`,
+                `${baseImagePath}img${((parseInt(imageNumber) + 1) % 4) + 1}${imageExt}`,
+                `${baseImagePath}img${((parseInt(imageNumber) + 2) % 4) + 1}${imageExt}`
+            ];
+
             const container = document.getElementById('productDetail');
             
             let sizesHtml = '';
@@ -375,9 +409,7 @@
                         <span class="size-label">Select Size</span>
                         <div class="size-options">
                             ${product.sizes.map(size => `
-                                <button class="size-btn ${product.availableSizes.includes(size) ? '' : 'disabled'}"
-                                        onclick="selectSize(this, '${size}')"
-                                        ${!product.availableSizes.includes(size) ? 'disabled' : ''}>
+                                <button class="size-btn" onclick="selectSize(this, '${size}')">
                                     ${size}
                                 </button>
                             `).join('')}
@@ -388,13 +420,25 @@
 
             container.innerHTML = `
                 <div class="product-images">
-                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="thumbnail-container">
+                        ${additionalImages.map((img, index) => `
+                            <img src="${img}" 
+                                alt="${product.name} - Image ${index + 1}" 
+                                class="thumbnail ${index === 0 ? 'active' : ''}"
+                                onclick="changeMainImage(this, '${img}')"
+                            >
+                        `).join('')}
+                    </div>
+                    <div class="main-image-container">
+                        <img src="${product.image}" alt="${product.name}" class="main-image" id="mainImage">
+                        <div class="magnifier" id="magnifier"></div>
+                    </div>
                 </div>
                 <div class="product-info">
                     <div class="product-brand">${product.brand}</div>
                     <div class="product-name">${product.name}</div>
                     <div class="product-price">฿${product.price.toLocaleString()}</div>
-                    <div class="product-description">${product.description}</div>
+                    <div class="product-description">${product.description || 'No description available.'}</div>
                     ${sizesHtml}
                     <button class="add-to-cart" 
                             onclick="addToCart()"
@@ -404,22 +448,53 @@
                     <div class="error-message" id="errorMessage">Please select a size before adding to cart</div>
                 </div>
             `;
+
+            // Setup image magnifier
+            const mainImage = document.getElementById('mainImage');
+            const magnifier = document.getElementById('magnifier');
+
+            mainImage.addEventListener('mousemove', (e) => {
+                const bounds = mainImage.getBoundingClientRect();
+                const x = e.clientX - bounds.left;
+                const y = e.clientY - bounds.top;
+
+                const magnifierSize = 150;
+                const magnifierHalf = magnifierSize / 2;
+                
+                let magnifierX = Math.min(Math.max(x - magnifierHalf, 0), bounds.width - magnifierSize);
+                let magnifierY = Math.min(Math.max(y - magnifierHalf, 0), bounds.height - magnifierSize);
+
+                magnifier.style.display = 'block';
+                magnifier.style.left = `${magnifierX}px`;
+                magnifier.style.top = `${magnifierY}px`;
+                magnifier.style.backgroundImage = `url(${mainImage.src})`;
+                magnifier.style.backgroundSize = `${bounds.width * 2}px ${bounds.height * 2}px`;
+                magnifier.style.backgroundPosition = `${-x * 2 + magnifierSize / 2}px ${-y * 2 + magnifierSize / 2}px`;
+            });
+
+            mainImage.addEventListener('mouseleave', () => {
+                magnifier.style.display = 'none';
+            });
         }
 
         let selectedSize = null;
 
+        // Change main image when thumbnail is clicked
+        function changeMainImage(thumbnail, imageSrc) {
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            thumbnail.classList.add('active');
+            document.getElementById('mainImage').src = imageSrc;
+        }
+
         // Select size
         function selectSize(button, size) {
-            // Remove active class from all size buttons
             document.querySelectorAll('.size-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            // Add active class to selected button
             button.classList.add('active');
             selectedSize = size;
             
-            // Enable add to cart button
             document.querySelector('.add-to-cart').disabled = false;
             document.getElementById('errorMessage').style.display = 'none';
         }
@@ -427,7 +502,6 @@
         // Add to cart
         function addToCart() {
             if (!currentUser) {
-                // Store current URL before redirecting
                 localStorage.setItem('returnPath', window.location.href);
                 window.location.href = 'auth.html';
                 return;
@@ -442,7 +516,6 @@
             DB.addToCart(productId, selectedSize);
             updateCartCount();
             
-            // Show success message
             const addToCartBtn = document.querySelector('.add-to-cart');
             const originalText = addToCartBtn.textContent;
             addToCartBtn.textContent = 'Added to Cart!';
