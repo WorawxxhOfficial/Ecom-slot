@@ -380,11 +380,26 @@ const DB = {
     // Product management methods
     addProduct(product) {
         const products = this.getProducts();
-        const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
-        const newProduct = { ...product, id: newId };
-        products.push(newProduct);
+        // Generate ID for new product
+        const maxId = Math.max(...products.map(p => p.id), 0);
+        product.id = maxId + 1;
+
+        // Generate additional images based on the main image path
+        if (!product.additionalImages) {
+            const baseImagePath = product.image.substring(0, product.image.lastIndexOf('/') + 1);
+            const imageNumber = product.image.substring(product.image.lastIndexOf('img') + 3, product.image.lastIndexOf('.'));
+            const imageExt = product.image.substring(product.image.lastIndexOf('.'));
+            
+            product.additionalImages = [
+                `${baseImagePath}img${(parseInt(imageNumber) % 4) + 1}${imageExt}`,
+                `${baseImagePath}img${((parseInt(imageNumber) + 1) % 4) + 1}${imageExt}`,
+                `${baseImagePath}img${((parseInt(imageNumber) + 2) % 4) + 1}${imageExt}`
+            ];
+        }
+
+        products.push(product);
         localStorage.setItem('products', JSON.stringify(products));
-        return newProduct;
+        return product;
     },
 
     updateProduct(id, updatedProduct) {
