@@ -4,125 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Product Details - Shop Online</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/contentDetails.css">
+    <title> CONTENT DETAILS | E-COMMERCE WEBSITE BY EDYODA </title>
+    <!-- favicon -->
+    <link rel="icon" href="https://yt3.ggpht.com/a/AGF-l78km1YyNXmF0r3-0CycCA0HLA_i6zYn_8NZEg=s900-c-k-c0xffffffff-no-rj-mo" type="image/gif" sizes="16x16">
+    <!-- <link rel="stylesheet" href="/box1.css"> -->
+    <link rel="stylesheet" href="css/contetDetails.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <!-- header links -->
+    <script src="https://kit.fontawesome.com/4a3b1f73a2.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
-    <div id="header"></div>
+<!-- HEADER -->
+<div id="1"></div>
+<script>
+    load("header.html");
+    function load(url)
+    {
+        req = new XMLHttpRequest();
+        req.open("GET", url, false);
+        req.send(null);
+        document.getElementById(1).innerHTML = req.responseText;
+    }
+</script>
+    
+    <div id="containerProduct">
+        <!-- JS rendered code -->
+    </div>
+    
+<script src="/contentDetails.js"></script>
 
-    <main id="mainContainer">
-        <div class="product-container">
-            <div class="product-images">
-                <div class="main-image">
-                    <img src="" alt="" id="productImage">
-                </div>
-            </div>
-            
-            <div class="product-info">
-                <nav class="breadcrumb">
-                    <a href="content.html">Home</a> /
-                    <span id="categoryName"></span> /
-                    <span id="productName"></span>
-                </nav>
-                
-                <h1 id="productTitle"></h1>
-                <p class="brand" id="productBrand"></p>
-                <p class="price">$<span id="productPrice"></span></p>
-                
-                <div class="size-selector">
-                    <label>Select Size:</label>
-                    <div class="size-options" id="sizeOptions">
-                        <!-- Sizes will be loaded here -->
-                    </div>
-                </div>
-                
-                <div class="quantity-selector">
-                    <label>Quantity:</label>
-                    <div class="quantity-controls">
-                        <button class="quantity-btn minus">-</button>
-                        <input type="number" id="quantity" value="1" min="1" max="10">
-                        <button class="quantity-btn plus">+</button>
-                    </div>
-                </div>
-                
-                <div class="stock-info">
-                    <span id="stockCount"></span> items in stock
-                </div>
-                
-                <div class="action-buttons">
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                    <button class="buy-now-btn">Buy Now</button>
-                </div>
-                
-                <div class="product-description">
-                    <h2>Product Details</h2>
-                    <p id="productDescription"></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Order Form Modal -->
-        <div id="orderModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Place Order</h2>
-                <form id="orderForm">
-                    <div class="form-group">
-                        <label for="customerName">Full Name:</label>
-                        <input type="text" id="customerName" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Phone:</label>
-                        <input type="tel" id="phone" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="address">Shipping Address:</label>
-                        <textarea id="address" required></textarea>
-                    </div>
-                    
-                    <div class="order-summary">
-                        <h3>Order Summary</h3>
-                        <div class="summary-item">
-                            <span>Product:</span>
-                            <span id="summaryProductName"></span>
-                        </div>
-                        <div class="summary-item">
-                            <span>Size:</span>
-                            <span id="summarySize"></span>
-                        </div>
-                        <div class="summary-item">
-                            <span>Quantity:</span>
-                            <span id="summaryQuantity"></span>
-                        </div>
-                        <div class="summary-item total">
-                            <span>Total:</span>
-                            <span id="summaryTotal"></span>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="place-order-btn">Place Order</button>
-                </form>
-            </div>
-        </div>
-    </main>
-
-    <div id="footer"></div>
-
-    <script src="js/jQuery3.4.1.js"></script>
-    <script src="contentDetails.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#header").load("header.html");
-            $("#footer").load("footer.html");
-        });
-    </script>
+<!-- FOOTER -->
+<div id="4"></div>
+<script>
+    load("footer.html");
+    function load(url)
+    {
+        req = new XMLHttpRequest();
+        req.open("GET", url, false);
+        req.send(null);
+        document.getElementById(4).innerHTML = req.responseText;
+    }
+</script>
 </body>
 </html>

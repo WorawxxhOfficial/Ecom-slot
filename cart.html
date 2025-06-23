@@ -4,76 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ตะกร้าสินค้า</title>
+    <title> Cart | E-COMMERCE WEBSITE BY EDYODA </title>
     <link rel="stylesheet" href="css/cart.css">
     <!-- favicon -->
     <link rel="icon" href="https://yt3.ggpht.com/a/AGF-l78km1YyNXmF0r3-0CycCA0HLA_i6zYn_8NZEg=s900-c-k-c0xffffffff-no-rj-mo" type="image/gif" sizes="16x16">
     <!-- header links -->
     <script src="https://kit.fontawesome.com/4a3b1f73a2.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-    <style>
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 10px 0;
-        }
-        .quantity-btn {
-            padding: 5px 10px;
-            cursor: pointer;
-            background: #009688;
-            color: white;
-            border: none;
-            border-radius: 3px;
-        }
-        .remove-btn {
-            padding: 5px 10px;
-            cursor: pointer;
-            background: #ff0000;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            margin-left: 10px;
-        }
-    </style>
+
 </head>
 <body>
-    <div class="container">
-        <h1>ตะกร้าสินค้า</h1>
-        
+        <!-- HEADER -->
+    <div id="1"></div>
+    <script>
+        load("header.html");
+        function load(url)
+        {
+            req = new XMLHttpRequest();
+            req.open("GET", url, false);
+            req.send(null);
+            document.getElementById(1).innerHTML = req.responseText;
+        }
+    </script>
+
+        <!-- CART CONTAINER -->
+    <div id="cartMainContainer">
+        <h1> Checkout </h1>
+        <h3 id="totalItem"> Total Items: 0 </h3>
+
         <div id="cartContainer">
-            <!-- Cart items will be loaded here -->
-            <div class="loading">กำลังโหลดข้อมูล...</div>
+            <!-- JS rendered code -->
         </div>
 
-        <div class="cart-summary">
-            <div class="summary-row">
-                <span>ราคารวม:</span>
-                <span id="subtotal">฿0.00</span>
-            </div>
-            <div class="summary-row">
-                <span>ค่าจัดส่ง:</span>
-                <span id="shipping">฿0.00</span>
-            </div>
-            <div class="summary-row total">
-                <span>ราคาสุทธิ:</span>
-                <span id="total">฿0.00</span>
-            </div>
-            <button id="checkoutBtn" class="checkout-btn" disabled>ชำระเงิน</button>
-        </div>
-
-        <div id="emptyCart" class="empty-cart" style="display: none;">
-            <h2>ตะกร้าสินค้าว่างเปล่า</h2>
-            <p>กรุณาเลือกสินค้าที่ต้องการซื้อ</p>
-            <a href="index.html" class="continue-shopping">เลือกซื้อสินค้า</a>
-        </div>
     </div>
 
-    <!-- Message container for notifications -->
-    <div id="messageContainer"></div>
-
-    <script src="js/db.js"></script>
-    <script src="cart.js"></script>
 </body>
     <!-- FOOTER -->
     <div id="4"></div>
@@ -87,4 +51,5 @@
             document.getElementById(4).innerHTML = req.responseText;
         }
     </script>
+<script src="/cart.js"></script>
 </html>
