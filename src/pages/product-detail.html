@@ -48,6 +48,7 @@
         <div id="footer"></div>
     </div>
 
+    <script src="../js/jQuery3.4.1.js"></script>
     <script src="../js/content.js"></script>
     <script src="../js/database.js"></script>
     <script>
@@ -88,6 +89,41 @@
         const urlParams = new URLSearchParams(window.location.search);
         const productId = parseInt(urlParams.get('id'));
 
+        // Selected size for products with size options
+        let selectedSize = null;
+
+        // Function to select size
+        function selectSize(button, size) {
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            selectedSize = size;
+            
+            // Enable add to cart button
+            document.querySelector('.add-to-cart').disabled = false;
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // Function to change main image
+        function changeMainImage(thumbnail, imageUrl) {
+            document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
+            thumbnail.classList.add('active');
+            document.getElementById('mainImage').src = imageUrl;
+        }
+
+        // Function to add product to cart
+        function addToCart() {
+            const product = DB.getProducts().find(p => p.id === productId);
+            
+            if (product.sizes && !selectedSize) {
+                document.getElementById('errorMessage').style.display = 'block';
+                return;
+            }
+
+            DB.addToCart(productId, selectedSize);
+            updateCartCount();
+            window.location.href = 'cart.html';
+        }
+
         // Load product details
         function loadProductDetails() {
             const product = DB.getProducts().find(p => p.id === productId);
@@ -95,20 +131,6 @@
                 window.location.href = 'index.html';
                 return;
             }
-
-            // Use additional images if available, otherwise generate them
-            const baseImagePath = product.image.substring(0, product.image.lastIndexOf('/') + 1);
-            const imageNumber = product.image.substring(product.image.lastIndexOf('img') + 3, product.image.lastIndexOf('.'));
-            const imageExt = product.image.substring(product.image.lastIndexOf('.'));
-            
-            const additionalImages = product.additionalImages 
-                ? [product.image, ...product.additionalImages]
-                : [
-                    product.image,
-                    `${baseImagePath}img${(parseInt(imageNumber) % 4) + 1}${imageExt}`,
-                    `${baseImagePath}img${((parseInt(imageNumber) + 1) % 4) + 1}${imageExt}`,
-                    `${baseImagePath}img${((parseInt(imageNumber) + 2) % 4) + 1}${imageExt}`
-                ];
 
             const container = document.getElementById('productDetail');
             
@@ -119,7 +141,9 @@
                         <span class="size-label">Select Size</span>
                         <div class="size-options">
                             ${product.sizes.map(size => `
-                                <button class="size-btn" onclick="selectSize(this, '${size}')">
+                                <button class="size-btn ${!product.availableSizes.includes(size) ? 'disabled' : ''}" 
+                                    onclick="selectSize(this, '${size}')"
+                                    ${!product.availableSizes.includes(size) ? 'disabled' : ''}>
                                     ${size}
                                 </button>
                             `).join('')}
@@ -131,13 +155,18 @@
             container.innerHTML = `
                 <div class="product-images">
                     <div class="thumbnail-container">
-                        ${additionalImages.map((img, index) => `
+                        <img src="${product.image}" 
+                            alt="${product.name}" 
+                            class="thumbnail active"
+                            onclick="changeMainImage(this, '${product.image}')"
+                        >
+                        ${product.additionalImages ? product.additionalImages.map(img => `
                             <img src="${img}" 
-                                alt="${product.name} - Image ${index + 1}" 
-                                class="thumbnail ${index === 0 ? 'active' : ''}"
+                                alt="${product.name}" 
+                                class="thumbnail"
                                 onclick="changeMainImage(this, '${img}')"
                             >
-                        `).join('')}
+                        `).join('') : ''}
                     </div>
                     <div class="main-image-container">
                         <img src="${product.image}" alt="${product.name}" class="main-image" id="mainImage">
@@ -165,75 +194,43 @@
 
             mainImage.addEventListener('mousemove', (e) => {
                 const bounds = mainImage.getBoundingClientRect();
+                
+                // Get cursor position relative to image
                 const x = e.clientX - bounds.left;
                 const y = e.clientY - bounds.top;
 
-                const magnifierSize = 150;
-                const magnifierHalf = magnifierSize / 2;
-                
-                let magnifierX = Math.min(Math.max(x - magnifierHalf, 0), bounds.width - magnifierSize);
-                let magnifierY = Math.min(Math.max(y - magnifierHalf, 0), bounds.height - magnifierSize);
+                // Calculate position within the actual image (accounting for scaling)
+                const naturalWidth = mainImage.naturalWidth;
+                const naturalHeight = mainImage.naturalHeight;
+                const displayWidth = mainImage.offsetWidth;
+                const displayHeight = mainImage.offsetHeight;
 
+                // Calculate scaling factors
+                const scaleX = naturalWidth / displayWidth;
+                const scaleY = naturalHeight / displayHeight;
+
+                // Calculate the actual position in the image
+                const imageX = (x * scaleX);
+                const imageY = (y * scaleY);
+
+                // Position magnifier
                 magnifier.style.display = 'block';
-                magnifier.style.left = `${magnifierX}px`;
-                magnifier.style.top = `${magnifierY}px`;
+                magnifier.style.left = (x - magnifier.offsetWidth / 2) + 'px';
+                magnifier.style.top = (y - magnifier.offsetHeight / 2) + 'px';
+
+                // Calculate zoom background position
+                const zoomX = (imageX / naturalWidth) * 100;
+                const zoomY = (imageY / naturalHeight) * 100;
+
+                // Set background
                 magnifier.style.backgroundImage = `url(${mainImage.src})`;
-                magnifier.style.backgroundSize = `${bounds.width * 2}px ${bounds.height * 2}px`;
-                magnifier.style.backgroundPosition = `${-x * 2 + magnifierSize / 2}px ${-y * 2 + magnifierSize / 2}px`;
+                magnifier.style.backgroundPosition = `${zoomX}% ${zoomY}%`;
+                magnifier.style.backgroundSize = `${naturalWidth * 1.5}px ${naturalHeight * 1.5}px`;
             });
 
             mainImage.addEventListener('mouseleave', () => {
                 magnifier.style.display = 'none';
             });
-        }
-
-        let selectedSize = null;
-
-        // Change main image when thumbnail is clicked
-        function changeMainImage(thumbnail, imageSrc) {
-            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-            thumbnail.classList.add('active');
-            document.getElementById('mainImage').src = imageSrc;
-        }
-
-        // Select size
-        function selectSize(button, size) {
-            document.querySelectorAll('.size-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            button.classList.add('active');
-            selectedSize = size;
-            
-            document.querySelector('.add-to-cart').disabled = false;
-            document.getElementById('errorMessage').style.display = 'none';
-        }
-
-        // Add to cart
-        function addToCart() {
-            if (!currentUser) {
-                localStorage.setItem('returnPath', window.location.href);
-                window.location.href = 'auth.html';
-                return;
-            }
-
-            const product = DB.getProducts().find(p => p.id === productId);
-            if (product.sizes && !selectedSize) {
-                document.getElementById('errorMessage').style.display = 'block';
-                return;
-            }
-
-            DB.addToCart(productId, selectedSize);
-            updateCartCount();
-            
-            const addToCartBtn = document.querySelector('.add-to-cart');
-            const originalText = addToCartBtn.textContent;
-            addToCartBtn.textContent = 'Added to Cart!';
-            addToCartBtn.style.background = '#4CAF50';
-            setTimeout(() => {
-                addToCartBtn.textContent = originalText;
-                addToCartBtn.style.background = '#ff3e6c';
-            }, 2000);
         }
 
         // Initial load

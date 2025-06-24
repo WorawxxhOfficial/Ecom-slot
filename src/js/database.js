@@ -11,11 +11,10 @@ const DB = {
                     brand: "MALLY Basic",
                     price: 590,
                     category: "Men Clothing",
-                    image: "/assets/images/men/img1.png",
+                    image: "/assets/images/men/men 1.jpg",
                     additionalImages: [
-                        "/assets/images/men/img2.png",
-                        "/assets/images/men/img3.png",
-                        "/assets/images/men/img4.png"
+                        "/assets/images/men/men 1.1.jpg",
+                        "/assets/images/men/men 1.2.jpg"
                     ],
                     description: "Classic crew neck t-shirt made from 100% soft cotton. Perfect for everyday wear with a comfortable regular fit.",
                     sizes: ["S", "M", "L", "XL"],
@@ -27,7 +26,12 @@ const DB = {
                     brand: "MALLY Denim",
                     price: 1590,
                     category: "Men Clothing",
-                    image: "/assets/images/men/img2.png",
+                    image: "/assets/images/men/men 2.jpg",
+                    additionalImages: [
+                        "/assets/images/men/men 2.1.jpg",
+                        "/assets/images/men/men 2.2.jpg",
+                        "/assets/images/men/men 2.3.jpg"
+                    ],
                     description: "Modern slim fit jeans in classic blue wash. Made with premium stretch denim for maximum comfort.",
                     sizes: ["28", "30", "32", "34", "36"],
                     availableSizes: ["30", "32", "34"]
@@ -38,7 +42,12 @@ const DB = {
                     brand: "MALLY Formal",
                     price: 1290,
                     category: "Men Clothing",
-                    image: "/assets/images/men/img3.png",
+                    image: "/assets/images/men/men 3.jpg",
+                    additionalImages: [
+                        "/assets/images/men/men 3.1.jpg",
+                        "/assets/images/men/men 3.2.jpg",
+                        "/assets/images/men/men 3.3.jpg"
+                    ],
                     description: "Timeless Oxford shirt in crisp white cotton. Perfect for both formal and casual occasions.",
                     sizes: ["S", "M", "L", "XL"],
                     availableSizes: ["S", "M", "L", "XL"]
@@ -49,7 +58,12 @@ const DB = {
                     brand: "MALLY Outerwear",
                     price: 2490,
                     category: "Men Clothing",
-                    image: "/assets/images/men/img4.png",
+                    image: "/assets/images/men/men 4.jpg",
+                    additionalImages: [
+                        "/assets/images/men/men 4.1.jpg",
+                        "/assets/images/men/men 4.2.jpg",
+                        "/assets/images/men/men 4.3.jpg"
+                    ],
                     description: "Stylish bomber jacket with ribbed cuffs and hem. Perfect for layering in cooler weather.",
                     sizes: ["S", "M", "L", "XL"],
                     availableSizes: ["M", "L", "XL"]
@@ -60,7 +74,11 @@ const DB = {
                     brand: "MALLY Sport",
                     price: 890,
                     category: "Men Clothing",
-                    image: "/assets/images/men/img1.png",
+                    image: "/assets/images/men/men 5.jpg",
+                    additionalImages: [
+                        "/assets/images/men/men 5.1.jpg",
+                        "/assets/images/men/men 5.2.jpg"
+                    ],
                     description: "Classic polo shirt with moisture-wicking fabric. Perfect for sports and casual wear.",
                     sizes: ["S", "M", "L", "XL", "XXL"],
                     availableSizes: ["S", "M", "L", "XL"]
@@ -71,7 +89,11 @@ const DB = {
                     brand: "MALLY Casual",
                     price: 1790,
                     category: "Men Clothing",
-                    image: "/assets/images/men/img2.png",
+                    image: "/assets/images/men/men-6.jpg",
+                    additionalImages: [
+                        "/assets/images/men/men-6.1.jpg",
+                        "/assets/images/men/men-6.2.jpg"
+                    ],
                     description: "Comfortable cargo pants with multiple pockets. Perfect for outdoor activities.",
                     sizes: ["28", "30", "32", "34", "36"],
                     availableSizes: ["30", "32", "34", "36"]
@@ -82,7 +104,11 @@ const DB = {
                     brand: "MALLY Basic",
                     price: 1290,
                     category: "Men Clothing",
-                    image: "/assets/images/men/img3.png",
+                    image: "/assets/images/men/men-7.jpg",
+                    additionalImages: [
+                        "/assets/images/men/men-7.1.jpg",
+                        "/assets/images/men/men-7.2.jpg"
+                    ],
                     description: "Cozy hooded sweatshirt with kangaroo pocket. Perfect for casual layering.",
                     sizes: ["S", "M", "L", "XL"],
                     availableSizes: ["S", "M", "L"]
@@ -93,7 +119,11 @@ const DB = {
                     brand: "MALLY Formal",
                     price: 3990,
                     category: "Men Clothing",
-                    image: "/assets/images/men/img4.png",
+                    image: "/assets/images/men/men-8.jpg",
+                    additionalImages: [
+                        "/assets/images/men/men-8.1.jpg",
+                        "/assets/images/men/men-8.2.jpg"
+                    ],
                     description: "Sophisticated blazer in classic navy. Perfect for formal occasions.",
                     sizes: ["S", "M", "L", "XL"],
                     availableSizes: ["M", "L", "XL"]
@@ -105,7 +135,11 @@ const DB = {
                     brand: "MALLY Women",
                     price: 1590,
                     category: "Women Clothing",
-                    image: "/assets/images/women/img1.png",
+                    image: "/assets/images/women/women 1.jpg",
+                    additionalImages: [
+                        "/assets/images/women/women 1.1.jpg",
+                        "/assets/images/women/women 1.2.jpg"
+                    ],
                     description: "Beautiful floral print dress perfect for summer days.",
                     sizes: ["XS", "S", "M", "L"],
                     availableSizes: ["XS", "S", "M", "L"]
@@ -116,7 +150,11 @@ const DB = {
                     brand: "MALLY Active",
                     price: 1290,
                     category: "Women Clothing",
-                    image: "/assets/images/women/img2.png",
+                    image: "/assets/images/women/women 2.jpg",
+                    additionalImages: [
+                        "/assets/images/women/women 2.1.jpg",
+                        "/assets/images/women/women 2.2.jpg"
+                    ],
                     description: "Comfortable high-waist yoga pants with moisture-wicking fabric.",
                     sizes: ["XS", "S", "M", "L", "XL"],
                     availableSizes: ["S", "M", "L"]
@@ -127,7 +165,11 @@ const DB = {
                     brand: "MALLY Elegant",
                     price: 1890,
                     category: "Women Clothing",
-                    image: "/assets/images/women/img3.png",
+                    image: "/assets/images/women/women 3.jpg",
+                    additionalImages: [
+                        "/assets/images/women/women 3.1.jpg",
+                        "/assets/images/women/women 3.2.jpg"
+                    ],
                     description: "Elegant silk blouse with delicate details. Perfect for office wear.",
                     sizes: ["XS", "S", "M", "L"],
                     availableSizes: ["S", "M", "L"]
@@ -138,7 +180,11 @@ const DB = {
                     brand: "MALLY Denim",
                     price: 1190,
                     category: "Women Clothing",
-                    image: "/assets/images/women/img4.png",
+                    image: "/assets/images/women/women 4.jpg",
+                    additionalImages: [
+                        "/assets/images/women/women 4.1.jpg",
+                        "/assets/images/women/women 4.2.jpg"
+                    ],
                     description: "Classic denim skirt with modern A-line cut.",
                     sizes: ["XS", "S", "M", "L"],
                     availableSizes: ["XS", "S", "M", "L"]
@@ -149,7 +195,11 @@ const DB = {
                     brand: "MALLY Knitwear",
                     price: 1690,
                     category: "Women Clothing",
-                    image: "/assets/images/women/img1.png",
+                    image: "/assets/images/women/women 5.jpg",
+                    additionalImages: [
+                        "/assets/images/women/women 5.1.jpg",
+                        "/assets/images/women/women 5.2.jpg"
+                    ],
                     description: "Soft knit sweater in pastel colors. Perfect for layering.",
                     sizes: ["S", "M", "L", "XL"],
                     availableSizes: ["S", "M", "L"]
@@ -160,7 +210,11 @@ const DB = {
                     brand: "MALLY Trendy",
                     price: 1890,
                     category: "Women Clothing",
-                    image: "/assets/images/women/img2.png",
+                    image: "/assets/images/women/women 6.jpg",
+                    additionalImages: [
+                        "/assets/images/women/women 6.1.jpg",
+                        "/assets/images/women/women 6.2.jpg"
+                    ],
                     description: "Fashionable wide leg pants with high waist.",
                     sizes: ["XS", "S", "M", "L"],
                     availableSizes: ["S", "M", "L"]
@@ -171,7 +225,11 @@ const DB = {
                     brand: "MALLY Style",
                     price: 2290,
                     category: "Women Clothing",
-                    image: "/assets/images/women/img3.png",
+                    image: "/assets/images/women/women 7.jpg",
+                    additionalImages: [
+                        "/assets/images/women/women 7.1.jpg",
+                        "/assets/images/women/women 7.2.jpg"
+                    ],
                     description: "Trendy cropped jacket with modern design.",
                     sizes: ["S", "M", "L"],
                     availableSizes: ["S", "M", "L"]
@@ -182,7 +240,11 @@ const DB = {
                     brand: "MALLY Elegant",
                     price: 3990,
                     category: "Women Clothing",
-                    image: "/assets/images/women/img4.png",
+                    image: "/assets/images/women/women 8.jpg",
+                    additionalImages: [
+                        "/assets/images/women/women 8.1.jpg",
+                        "/assets/images/women/women 8.2.jpg"
+                    ],
                     description: "Elegant maxi dress perfect for evening events.",
                     sizes: ["XS", "S", "M", "L"],
                     availableSizes: ["S", "M", "L"]
