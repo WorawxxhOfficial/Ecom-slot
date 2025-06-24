@@ -341,89 +341,126 @@ const DB = {
                 // Electronics
                 {
                     id: 25,
-                    name: "Wireless Earbuds Pro",
-                    brand: "MALLY Tech",
+                    name: "Efiedir Neobuds Pro 3",
+                    brand: "Efiedir",
                     price: 4990,
                     category: "Electronics",
-                    image: "/assets/images/electronics/img1.png",
-                    description: "Premium wireless earbuds with active noise cancellation.",
+                    image: "/assets/images/electronics/electronics1/1.1.jpeg",
+                    additionalImages: [
+                        "/assets/images/electronics/electronics1/1.2.jpeg",
+                       "/assets/images/electronics/electronics1/1.3.jpeg",
+                       "/assets/images/electronics/electronics1/1.4.jpeg"
+                    ],
+                    description: "The Edifier NeoBuds Pro 3 combine cutting-edge technology with sophisticated aesthetics. Enjoy breathtaking Hi-Res audio fidelity and customizable active noise cancellation, all housed in an ergonomically designed earbud for ultimate comfort. Stay connected with clear voice calls and power through your day with extended battery life.",
                     sizes: null,
                     availableSizes: null
                 },
                 {
                     id: 26,
-                    name: "Smart Watch Elite",
-                    brand: "MALLY Tech",
+                    name: "Edifier X2s ",
+                    brand: "Edifier",
                     price: 7990,
                     category: "Electronics",
-                    image: "/assets/images/electronics/img1.png",
-                    description: "Advanced smartwatch with health monitoring features.",
+                    image: "/assets/images/electronics/electronics2/1.1.jpg",
+                    additionalImages: [
+                        "/assets/images/electronics/electronics2/1.2.jpg",
+                       "/assets/images/electronics/electronics2/1.3.jpg"
+                    ],
+                    description: "The Edifier X2s earbuds deliver versatile performance for every part of your day. Immerse yourself in games with ultra-low 60ms latency in gaming mode, ensuring perfectly synchronized audio. Benefit from AI Environmental Noise Cancellation for incredibly clear phone calls, and enjoy your favorite tunes with dynamic, high-quality sound produced by 13mm drivers. These lightweight and comfortable earbuds also feature Bluetooth 5.3 for reliable connection and an IP54 rating for dust and splash resistance, making them ideal for an active lifestyle.",
                     sizes: null,
                     availableSizes: null
                 },
                 {
                     id: 27,
-                    name: "Bluetooth Speaker",
-                    brand: "MALLY Audio",
+                    name: "Spigen Rugged Armor Pro Apple Watch 45 ",
+                    brand: "Apple Watch",
                     price: 3490,
                     category: "Electronics",
-                    image: "/assets/images/electronics/img2.png",
-                    description: "Portable Bluetooth speaker with deep bass.",
+                    image: "/assets/images/electronics/electronics3/1.1.jpg",
+                    additionalImages: [
+                        "/assets/images/electronics/electronics3/1.2.jpg",
+                       "/assets/images/electronics/electronics3/1.3.jpg"
+                    ],
+                    description: "Give your Apple Watch the ultimate defense with the Spigen Rugged Armor Pro. This integrated case and band for 45mm Apple Watch models (Series 7/8/9, also fits 44mm SE/6/5/4) offers superior shock absorption and screen protection with raised edges. Its signature carbon fiber accents and matte finish provide a rugged yet sophisticated aesthetic. Easy to install and remove, it ensures full functionality while keeping your valuable device safe from daily wear and tear.",
                     sizes: null,
                     availableSizes: null
                 },
                 {
                     id: 28,
-                    name: "Noise Cancelling Headphones",
-                    brand: "MALLY Audio",
+                    name: "UNIQ Monos 2-IN-1 Watch Strap ",
+                    brand: "Apple Watch ",
                     price: 5990,
                     category: "Electronics",
-                    image: "/assets/images/electronics/img1.png",
-                    description: "Over-ear headphones with premium sound quality.",
-                    sizes: null,
-                    availableSizes: null
+                    image: "/assets/images/electronics/electronics4/1.1.png",
+                    additionalImages: [
+                        "/assets/images/electronics/electronics4/1.2.png",
+                       "/assets/images/electronics/electronics4/1.3.png"
+                    ],
+                    description: "Unleash versatility with the UNIQ Monos 2-IN-1 Watch Strap. This innovative design gives you two distinct styles in a single band, perfect for adapting to any outfit or activity. Built with comfortable, premium materials for all-day wear and a secure fit, it's the only strap you'll need.",
+                    sizes:  ["1", "2", "3", "4"],
+                    availableSizes: [ "2", "3"]
                 },
                 {
                     id: 29,
-                    name: "Fitness Tracker",
-                    brand: "MALLY Tech",
+                    name: "Azio Retro Compact Mechanical Keyboard EN Keycap ",
+                    brand: "Azio",
                     price: 2990,
                     category: "Electronics",
-                    image: "/assets/images/electronics/img2.png",
-                    description: "Smart fitness tracker with heart rate monitoring.",
+                    image: "/assets/images/electronics/electronics5/1.1.jpg",
+                    additionalImages: [
+                        "/assets/images/electronics/electronics5/1.2.jpg",
+                       "/assets/images/electronics/electronics5/1.3.jpg",
+                       "/assets/images/electronics/electronics5/1.4.jpg"
+                    ],
+                    description: "Step back in time with the Azio Retro Compact Mechanical Keyboard, featuring a classic typewriter-inspired design beautifully blended with modern functionality. This compact keyboard boasts tactile and clicky mechanical switches (Azio Typelit by Kailh), providing a deeply satisfying typing experience that harks back to vintage machines. The round, center-lit English keycaps illuminate your workspace, while premium materials like genuine leather or real wood surfaces and a durable aluminum alloy frame ensure both a luxurious feel and lasting quality. With Bluetooth and USB hybrid connectivity, it's compatible with both Mac and PC, making it a versatile and stylish centerpiece for any desk.",
                     sizes: null,
                     availableSizes: null
                 },
                 {
                     id: 30,
-                    name: "Portable Power Bank",
-                    brand: "MALLY Tech",
+                    name: "Keychron Q3 Knob TH Blue frame - Gateron Blue Switch Type B",
+                    brand: "Keychron",
                     price: 1490,
                     category: "Electronics",
-                    image: "/assets/images/electronics/img3.png",
-                    description: "High-capacity power bank with fast charging.",
+                    image: "/assets/images/electronics/electronics6/1.1.png",
+                    additionalImages: [
+                        "/assets/images/electronics/electronics6/1.2.png",
+                       "/assets/images/electronics/electronics6/1.3.png",
+                       "/assets/images/electronics/electronics6/1.4.png"
+                    ],
+                    description: "The Keychron Q3 Knob TH Blue Frame is a meticulously crafted, fully customizable mechanical keyboard designed to deliver a premium typing experience for both work and play. This specific model combines a striking aesthetic with highly satisfying tactile and auditory feedback, tailored for discerning users.",
                     sizes: null,
                     availableSizes: null
                 },
                 {
                     id: 31,
-                    name: "Smart Home Camera",
-                    brand: "MALLY Security",
+                    name: "Logitech MX Master 3s Mouse ",
+                    brand: "Logitech",
                     price: 3990,
                     category: "Electronics",
-                    image: "/assets/images/electronics/img4.png",
-                    description: "HD security camera with night vision.",
+                    image: "/assets/images/electronics/electronics7/1.1.png",
+                    additionalImages: [
+                        "/assets/images/electronics/electronics7/1.2.png",
+                       "/assets/images/electronics/electronics7/1.3.png",
+                       "/assets/images/electronics/electronics7/1.4.png"
+                    ],
+                    description: "Customizable Buttons with Logitech Options+: Personalize your workflow with seven customizable buttons, including the main clicks, forward/back buttons, thumb wheel, scroll mode shift button, and gesture button. Use the powerful Logitech Options+ software (available for Windows and macOS) to assign application-specific functions, create macros, and optimize the mouse to your unique needs.",
                     sizes: null,
                     availableSizes: null
                 },
                 {
                     id: 32,
-                    name: "Gaming Mouse",
-                    brand: "MALLY Gaming",
+                    name: "Satechi M1 Bluetooth Wireless Mouse ",
+                    brand: "Satechi",
                     price: 2490,
                     category: "Electronics",
-                    image: "/assets/images/electronics/img1.png",
-                    description: "High-precision gaming mouse with RGB lighting.",
+                    image: "/assets/images/electronics/electronics8/1.1.png",
+                    additionalImages: [
+                        "/assets/images/electronics/electronics8/1.2.png",
+                       "/assets/images/electronics/electronics8/1.3.png",
+                       "/assets/images/electronics/electronics8/1.4.png"
+                    ],
+                    description: "Elevate your workspace with the Satechi M1 Bluetooth Wireless Mouse, a perfect blend of modern aesthetics and effortless functionality. Crafted with a brushed aluminum finish and an ergonomic, curved design, it fits comfortably in your hand while complementing your contemporary desktop setup, especially Apple devices. Featuring Bluetooth 5.0 (or 4.0 depending on production batch) connectivity, it offers a reliable and stable wireless connection up to 32 feet (10 meters) away, freeing your workspace from clutter. The optical sensors provide precise tracking and fast scrolling, while the convenient USB-C rechargeable port eliminates the need for disposable batteries, ensuring you're always ready to work.",
                     sizes: null,
                     availableSizes: null
                 }
