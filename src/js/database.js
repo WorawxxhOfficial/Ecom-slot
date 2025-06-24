@@ -252,88 +252,128 @@ const DB = {
                 // Shoes
                 {
                     id: 17,
-                    name: "Classic Sneakers",
-                    brand: "MALLY Footwear",
-                    price: 2290,
+                    name: "SIREN LUXE CLOG",
+                    brand: "SIREN LUXE CLOG",
+                    price: 4890,
                     category: "Shoes",
-                    image: "/assets/images/shoes/img1.png",
+                    image: "/assets/images/shoes/s1/1.png",
+                    additionalImages: [
+                        "/assets/images/shoes/s1/2.png",
+                       "/assets/images/shoes/s1/3.png",
+                       "/assets/images/shoes/s1/4.png"
+                    ],
                     description: "Classic white sneakers with comfortable fit.",
                     sizes: ["36", "37", "38", "39", "40", "41", "42"],
                     availableSizes: ["37", "38", "39", "40", "41"]
                 },
                 {
                     id: 18,
-                    name: "Running Performance",
-                    brand: "MALLY Sport",
-                    price: 3490,
+                    name: "YUKON FISHERMAN",
+                    brand: "YUKON ",
+                    price: 3290,
                     category: "Shoes",
-                    image: "/assets/images/shoes/img2.png",
+                    image:"/assets/images/shoes/s2/1.png",
+                    additionalImages: [
+                        "/assets/images/shoes/s2/2.png",
+                       "/assets/images/shoes/s2/3.png",
+                       "/assets/images/shoes/s2/4.png"
+                    ],
                     description: "Professional running shoes with advanced cushioning.",
                     sizes: ["38", "39", "40", "41", "42", "43", "44"],
                     availableSizes: ["39", "40", "41", "42", "43"]
                 },
                 {
                     id: 19,
-                    name: "Leather Oxford",
-                    brand: "MALLY Formal",
+                    name: " BUBBLE CRUSH CLOG",
+                    brand: " BUBBLE ",
                     price: 4290,
                     category: "Shoes",
-                    image: "/assets/images/shoes/img3.png",
+                    image: "/assets/images/shoes/s3/1.png",
+                    additionalImages: [
+                        "/assets/images/shoes/s3/2.png",
+                       "/assets/images/shoes/s3/3.png",
+                       "/assets/images/shoes/s3/4.png"
+                    ],
                     description: "Classic leather Oxford shoes for formal occasions.",
                     sizes: ["38", "39", "40", "41", "42", "43"],
                     availableSizes: ["39", "40", "41", "42"]
                 },
                 {
                     id: 20,
-                    name: "Casual Loafers",
-                    brand: "MALLY Comfort",
-                    price: 2790,
+                    name: "Mule Low Flo Flamingo ",
+                    brand: "Mule ",
+                    price: 27900,
                     category: "Shoes",
-                    image: "/assets/images/shoes/img4.png",
+                    image:"/assets/images/shoes/s4/1.png",
+                    additionalImages: [
+                        "/assets/images/shoes/s4/2.png",
+                       "/assets/images/shoes/s4/3.png",
+                       "/assets/images/shoes/s4/4.png"
+                    ],
                     description: "Comfortable loafers perfect for everyday wear.",
                     sizes: ["38", "39", "40", "41", "42"],
                     availableSizes: ["39", "40", "41"]
                 },
                 {
                     id: 21,
-                    name: "High-Top Canvas",
-                    brand: "MALLY Street",
+                    name: " Court Royale 2  DH3159100",
+                    brand: " Court",
                     price: 1890,
                     category: "Shoes",
-                    image: "/assets/images/shoes/img1.png",
+                    image: "/assets/images/shoes/s5/1.png",
+                    additionalImages: [
+                        "/assets/images/shoes/s5/2.png",
+                       "/assets/images/shoes/s5/3.png",
+                       "/assets/images/shoes/s5/4.png"
+                    ],
                     description: "Stylish high-top canvas shoes for casual wear.",
                     sizes: ["36", "37", "38", "39", "40", "41"],
                     availableSizes: ["37", "38", "39", "40"]
                 },
                 {
                     id: 22,
-                    name: "Hiking Boots",
-                    brand: "MALLY Outdoor",
-                    price: 3990,
+                    name: "Speedcat OG",
+                    brand: "PUMA",
+                    price: 3980,
                     category: "Shoes",
-                    image: "/assets/images/shoes/img2.png",
+                    image: "/assets/images/shoes/s6/1.png",
+                    additionalImages: [
+                        "/assets/images/shoes/s6/2.png",
+                       "/assets/images/shoes/s6/3.png",
+                       "/assets/images/shoes/s6/4.png"
+                    ],
                     description: "Durable hiking boots for outdoor adventures.",
                     sizes: ["38", "39", "40", "41", "42", "43"],
                     availableSizes: ["39", "40", "41", "42"]
                 },
                 {
                     id: 23,
-                    name: "Ballet Flats",
-                    brand: "MALLY Women",
-                    price: 1690,
+                    name: " Temple สี White Leather",
+                    brand: " Temple",
+                    price: 14900,
                     category: "Shoes",
-                    image: "/assets/images/shoes/img3.png",
+                    image: "/assets/images/shoes/s7/1.png",
+                    additionalImages: [
+                        "/assets/images/shoes/s7/2.png",
+                       "/assets/images/shoes/s7/3.png",
+                       "/assets/images/shoes/s7/4.png"
+                    ],
                     description: "Elegant ballet flats for comfortable style.",
                     sizes: ["35", "36", "37", "38", "39", "40"],
                     availableSizes: ["36", "37", "38", "39"]
                 },
                 {
                     id: 24,
-                    name: "Sport Sandals",
-                    brand: "MALLY Active",
-                    price: 1490,
+                    name: " U Pg1X B Abx สี White/Navy",
+                    brand: "GEOX",
+                    price: 7032,
                     category: "Shoes",
-                    image: "/assets/images/shoes/img4.png",
+                    image: "/assets/images/shoes/s8/1.png",
+                    additionalImages: [
+                        "/assets/images/shoes/s8/2.png",
+                       "/assets/images/shoes/s8/3.png",
+                       "/assets/images/shoes/s8/4.png"
+                    ],
                     description: "Comfortable sport sandals for active lifestyle.",
                     sizes: ["36", "37", "38", "39", "40", "41", "42"],
                     availableSizes: ["37", "38", "39", "40", "41"]
