@@ -56,12 +56,35 @@ project/
 │   ├── css/
 │   └── images/
 ├── src/
+│   ├── config/
+│   │   └── database.js
 │   ├── controllers/
+│   │   ├── auth.js
+│   │   ├── cart.js
+│   │   ├── order.js
+│   │   └── product.js
+│   ├── middleware/
+│   │   └── auth.js
 │   ├── models/
+│   │   ├── user.js
+│   │   ├── product.js
+│   │   ├── cart.js
+│   │   └── order.js
+│   ├── public/
+│   │   ├── js/
+│   │   ├── index.html
+│   │   ├── auth.html
+│   │   ├── cart.html
+│   │   ├── product-detail.html
+│   │   └── orderPlaced.html
 │   ├── routes/
-│   ├── views/
-│   └── public/
-└── server.js
+│   │   ├── auth.js
+│   │   ├── cart.js
+│   │   ├── order.js
+│   │   └── product.js
+│   └── server.js
+├── package.json
+└── database.sqlite
 ```
 
 ## Setup Instructions
@@ -80,7 +103,7 @@ project/
 3. Create a .env file in the root directory with the following variables:
    ```
    PORT=3000
-   JWT_SECRET=mally-secret-key-2024
+   JWT_SECRET=your-secret-key-change-this-in-production
    NODE_ENV=development
    ```
 
@@ -127,6 +150,20 @@ project/
 - `GET /api/orders` - Get user's orders
 - `GET /api/orders/:id` - Get order details
 - `PUT /api/orders/:id/status` - Update order status (Admin only)
+
+## Screenshots
+
+### Home Page (index.html)
+![Home Page](screenshots/home.png)
+
+### Product Detail Page (product-detail.html)
+![Product Detail](screenshots/product-detail.png)
+
+### Shopping Cart Page (cart.html)
+![Shopping Cart](screenshots/cart.png)
+
+### Login Page (auth.html)
+![Login](screenshots/login.png)
 
 ## Environment Variables
 
