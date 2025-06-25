@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "admin",
+    "email": "admin@Mally.com",
+    "password": "$2a$10$u/q.NSku/5UZGiMQ3gD19u5PSD5EKtCvj16mRmYnsBf.j2aZocCeO",
+    "role": "customer"
+  },
+  {
+    "id": 2,
+    "name": "kuy",
+    "email": "worawichyimsabai@gmail.com",
+    "password": "$2a$10$Y3GA/Zah4H46d7wSeHosx.rJ0R/r7WrngjBbO.9mKIgdOUMHFSa0u",
+    "role": "customer"
+  }
+]

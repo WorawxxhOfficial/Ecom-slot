@@ -6,7 +6,7 @@
     <title>Login & Register - MALLY</title>
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <!-- CSS files -->
-    <link rel="stylesheet" href="../../assets/css/auth.css">
+    <link rel="stylesheet" href="/assets/css/auth.css">
     <style>
         * {
             margin: 0;
@@ -98,7 +98,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="logo">MALLY</a>
+        <a href="/" class="logo">MALLY</a>
         <div class="tabs">
             <div class="tab active" onclick="showForm('login')">Login</div>
             <div class="tab" onclick="showForm('register')">Register</div>
@@ -135,8 +135,9 @@
         </form>
     </div>
 
-    <script src="../js/database.js"></script>
-    <script>
+    <script type="module">
+        import auth from '/js/auth.js';
+
         function showForm(formType) {
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             document.querySelector(`.tab:${formType === 'login' ? 'first-child' : 'last-child'}`).classList.add('active');
@@ -145,44 +146,41 @@
             document.getElementById('registerForm').style.display = formType === 'register' ? 'block' : 'none';
         }
 
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            const user = DB.login(email, password);
-            if (user) {
-                localStorage.setItem('currentUser', JSON.stringify(user));
+            try {
+                await auth.login(email, password);
                 // Check if there's a return path
                 const returnPath = localStorage.getItem('returnPath');
                 if (returnPath) {
-                    localStorage.removeItem('returnPath'); // Clear the stored path
+                    localStorage.removeItem('returnPath');
                     window.location.href = returnPath;
                 } else {
-                    window.location.href = 'index.html';
+                    window.location.href = '/';
                 }
-            } else {
-                document.getElementById('loginError').textContent = 'Invalid email or password';
+            } catch (error) {
+                document.getElementById('loginError').textContent = error.message;
             }
         });
 
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('registerName').value;
             const email = document.getElementById('registerEmail').value;
             const password = document.getElementById('registerPassword').value;
             
-            const users = DB.getUsers();
-            if (users.some(user => user.email === email)) {
-                document.getElementById('registerError').textContent = 'Email already exists';
-                return;
+            try {
+                await auth.register(name, email, password);
+                window.location.href = '/';
+            } catch (error) {
+                document.getElementById('registerError').textContent = error.message;
             }
-
-            DB.addUser({ name, email, password });
-            showForm('login');
-            document.getElementById('loginEmail').value = email;
-            document.getElementById('loginPassword').value = password;
         });
+
+        window.showForm = showForm;
     </script>
 </body>
 </html> 

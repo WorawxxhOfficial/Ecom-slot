@@ -11,10 +11,10 @@ const DB = {
                     brand: "MALLY Basic",
                     price: 590,
                     category: "Men Clothing",
-                    image: "/assets/images/men/men 1.jpg",
+                    image: "assets/images/men/men 1.jpg",
                     additionalImages: [
-                        "/assets/images/men/men 1.1.jpg",
-                        "/assets/images/men/men 1.2.jpg"
+                        "assets/images/men/men 1.1.jpg",
+                        "assets/images/men/men 1.2.jpg"
                     ],
                     description: "Classic crew neck t-shirt made from 100% soft cotton. Perfect for everyday wear with a comfortable regular fit.",
                     sizes: ["S", "M", "L", "XL"],

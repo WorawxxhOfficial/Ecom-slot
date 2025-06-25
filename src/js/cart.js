@@ -1,3 +1,140 @@
+import auth from './auth.js';
+
+class Cart {
+    constructor() {
+        this.items = [];
+        this.loadCart();
+    }
+
+    async loadCart() {
+        if (!auth.isAuthenticated()) {
+            this.items = [];
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/cart', {
+                headers: auth.getAuthHeaders()
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to load cart');
+            }
+
+            this.items = await response.json();
+            this.updateUI();
+        } catch (error) {
+            console.error('Load cart error:', error);
+            this.items = [];
+        }
+    }
+
+    async addItem(productId, quantity = 1) {
+        if (!auth.isAuthenticated()) {
+            window.location.href = '/auth';
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/cart/add', {
+                method: 'POST',
+                headers: auth.getAuthHeaders(),
+                body: JSON.stringify({ productId, quantity })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add item to cart');
+            }
+
+            this.items = await response.json();
+            this.updateUI();
+        } catch (error) {
+            console.error('Add to cart error:', error);
+        }
+    }
+
+    updateUI() {
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) {
+            cartCount.textContent = this.items.reduce((total, item) => total + item.quantity, 0);
+        }
+
+        const cartItems = document.getElementById('cart-items');
+        if (cartItems) {
+            this.renderCartItems(cartItems);
+        }
+    }
+
+    renderCartItems(container) {
+        if (!this.items.length) {
+            container.innerHTML = '<p>Your cart is empty</p>';
+            return;
+        }
+
+        // Fetch product details for items in cart
+        this.fetchProductDetails().then(products => {
+            const html = this.items.map(item => {
+                const product = products.find(p => p.id === item.productId);
+                if (!product) return '';
+                
+                return `
+                    <div class="cart-item">
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="cart-item-details">
+                            <h3>${product.name}</h3>
+                            <p>Price: $${product.price}</p>
+                            <p>Quantity: ${item.quantity}</p>
+                            <button onclick="cart.removeItem('${item.productId}')">Remove</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = html;
+        });
+    }
+
+    async fetchProductDetails() {
+        try {
+            const response = await fetch('/api/products');
+            if (!response.ok) {
+                throw new Error('Failed to fetch products');
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Fetch products error:', error);
+            return [];
+        }
+    }
+
+    async removeItem(productId) {
+        if (!auth.isAuthenticated()) {
+            window.location.href = '/auth';
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/cart/remove', {
+                method: 'POST',
+                headers: auth.getAuthHeaders(),
+                body: JSON.stringify({ productId })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to remove item from cart');
+            }
+
+            this.items = await response.json();
+            this.updateUI();
+        } catch (error) {
+            console.error('Remove from cart error:', error);
+        }
+    }
+}
+
+const cart = new Cart();
+export default cart;
+
 console.clear();
 
 if(document.cookie.indexOf(',counter=')>=0)
@@ -137,6 +274,103 @@ httpRequest.onreadystatechange = function()
 
 httpRequest.open('GET', 'https://5d76bf96515d1a0014085cf9.mockapi.io/product', true)
 httpRequest.send()
+
+// Function to check if token is expired
+function isTokenExpired(token) {
+    if (!token) return true;
+    
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const expirationTime = payload.exp * 1000; // Convert to milliseconds
+        return Date.now() >= expirationTime;
+    } catch (error) {
+        return true;
+    }
+}
+
+// Function to check if user is logged in
+function isUserLoggedIn() {
+    const token = localStorage.getItem('token');
+    return token && !isTokenExpired(token);
+}
+
+// Function to add item to cart
+async function addToCart(productId) {
+    if (!isUserLoggedIn()) {
+        alert('กรุณาเข้าสู่ระบบก่อนเพิ่มสินค้าลงตะกร้า');
+        window.location.href = '/auth';
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/cart/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ productId })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            if (error.error === 'Token expired') {
+                alert('Session หมดอายุ กรุณาเข้าสู่ระบบใหม่');
+                window.location.href = '/auth';
+                return;
+            }
+            throw new Error(error.error || 'Failed to add item to cart');
+        }
+
+        const result = await response.json();
+        alert('เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว');
+        updateCartCount();
+    } catch (error) {
+        console.error('Error adding to cart:', error);
+        alert('เกิดข้อผิดพลาดในการเพิ่มสินค้าลงตะกร้า');
+    }
+}
+
+// Function to update cart count in header
+async function updateCartCount() {
+    const cartCountElement = document.getElementById('cartCount');
+    if (!cartCountElement) return;
+
+    if (!isUserLoggedIn()) {
+        cartCountElement.textContent = '0';
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/cart/count', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        
+        if (!response.ok) {
+            const error = await response.json();
+            if (error.error === 'Token expired') {
+                cartCountElement.textContent = '0';
+                return;
+            }
+            throw new Error('Failed to get cart count');
+        }
+
+        const data = await response.json();
+        cartCountElement.textContent = data.count;
+    } catch (error) {
+        console.error('Error updating cart count:', error);
+        cartCountElement.textContent = '0';
+    }
+}
+
+// Initialize cart count when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    updateCartCount();
+    // Update cart count every minute
+    setInterval(updateCartCount, 60000);
+});
 
 
 
