@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="/style.css"> -->
+    <title>MALLY - Home</title>
+    <!-- favicon -->
+    <link rel="icon" href="https://yt3.ggpht.com/a/AGF-l78km1YyNXmF0r3-0CycCA0HLA_i6zYn_8NZEg=s900-c-k-c0xffffffff-no-rj-mo" type="image/gif" sizes="16x16">
+    <!-- header links -->
+    <script src="https://kit.fontawesome.com/4a3b1f73a2.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- slider links -->
+    <!-- <script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
+    <script src="../js/jQuery3.4.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <!-- CSS files -->
+    <link rel="stylesheet" href="../../assets/css/header.css">
+    <link rel="stylesheet" href="../../assets/css/index.css">
+    <link rel="stylesheet" href="../../assets/css/footer.css">
+</head>
+
+<body>
+    <div id="mainContainer">
+        <!-- Content wrapper -->
+        <div id="content">
+            <header class="header">
+                <div class="header-content">
+                    <a href="index.html" class="logo">MALLY</a>
+                    <nav class="nav-links">
+                        <a href="index.html?category=Men%20Clothing">MEN</a>
+                        <a href="index.html?category=Women%20Clothing">WOMEN</a>
+                        <a href="index.html?category=Shoes">SHOES</a>
+                        <a href="index.html?category=Electronics">ELECTRONICS</a>
+                    </nav>
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" placeholder="Search for products...">
+                    </div>
+                    <div class="user-actions">
+                        <a href="cart.html" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount">0</span>
+                        </a>
+                        <a href="#" id="loginStatus">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <div class="banner">
+                <div class="banner-content">
+                    <h1 class="banner-title">Summer Sale</h1>
+                    <p class="banner-subtitle">Up to 70% off on selected items</p>
+                    <button class="banner-button" onclick="filterByCategory(null)">Shop Now</button>
+                </div>
+            </div>
+
+            <div class="main-container">
+                <div class="category-filters">
+                    <button class="active" onclick="filterProducts('all')">All</button>
+                    <button onclick="filterProducts('Men Clothing')">Men Clothing</button>
+                    <button onclick="filterProducts('Women Clothing')">Women Clothing</button>
+                    <button onclick="filterProducts('Shoes')">Shoes</button>
+                    <button onclick="filterProducts('Electronics')">Electronics</button>
+                </div>
+                <div class="products-container" id="productsContainer">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Load footer content -->
+        <div id="footer"></div>
+    </div>
+
+    <!-- Link your JavaScript files -->
+    <script src="../js/content.js"></script>
+    <script src="../js/database.js"></script>
+    <script>
+        // Save current user and cart data
+        const savedUser = localStorage.getItem('currentUser');
+        const savedCart = localStorage.getItem('cart');
+        
+        // Clear localStorage to force database refresh
+        localStorage.clear();
+        
+        // Restore user and cart data
+        if (savedUser) localStorage.setItem('currentUser', savedUser);
+        if (savedCart) localStorage.setItem('cart', savedCart);
+        
+        // Initialize database first
+        DB.init();
+
+        // Check login status and update icon
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const loginStatus = document.getElementById('loginStatus');
+        const loginIcon = loginStatus.querySelector('i');
+        
+        if (currentUser) {
+            loginIcon.classList.remove('fa-sign-in-alt');
+            loginIcon.classList.add('fa-sign-out-alt');
+            loginStatus.title = 'Logout';
+            loginStatus.onclick = () => {
+                localStorage.removeItem('currentUser');
+                window.location.reload();
+            };
+        } else {
+            loginIcon.classList.remove('fa-sign-out-alt');
+            loginIcon.classList.add('fa-sign-in-alt');
+            loginStatus.title = 'Login';
+            loginStatus.onclick = () => {
+                window.location.href = 'auth.html';
+            };
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const cart = DB.getCart();
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+        updateCartCount();
+
+        // Get category from URL if exists
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryFromUrl = urlParams.get('category');
+
+        // Function to display products
+        function displayProducts(products) {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = '';
+            
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.onclick = () => window.location.href = `product-detail.html?id=${product.id}`;
+                
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-brand">${product.brand}</div>
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">฿${product.price.toLocaleString()}</div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Initial display of all products
+        displayProducts(DB.getProducts());
+
+        // Filter products by category
+        function filterProducts(category) {
+            const products = category === 'all' 
+                ? DB.getProducts() 
+                : DB.getProducts().filter(p => p.category === category);
+            
+            displayProducts(products);
+
+            // Update active button
+            document.querySelectorAll('.category-filters button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === category || (category === 'all' && btn.textContent === 'All')) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Add search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const products = DB.getProducts();
+            const filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.brand.toLowerCase().includes(searchTerm) ||
+                product.category.toLowerCase().includes(searchTerm)
+            );
+
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = filteredProducts.map(product => `
+                <div class="product-card" onclick="window.location.href='product-detail.html?id=${product.id}'">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-brand">${product.brand}</div>
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">฿${product.price.toLocaleString()}</div>
+                    </div>
+                </div>
+            `).join('');
+        });
+
+        // Initial load
+        filterProducts(categoryFromUrl || 'all');
+    </script>
+</body>
+
+<!-- slider JS START -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<script>
+    $(document).ready(function()
+    {
+    $('#containerSlider').slick({
+        dots: true,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 1500,
+        });
+    });
+</script>
+<!-- slider JS ENDS -->
+
+</html>

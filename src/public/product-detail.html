@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MALLY - Product Detail</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- CSS files -->
+    <link rel="stylesheet" href="../../assets/css/header.css">
+    <link rel="stylesheet" href="../../assets/css/product-detail.css">
+    <link rel="stylesheet" href="../../assets/css/footer.css">
+</head>
+<body>
+    <div id="mainContainer">
+        <div id="content">
+            <header class="header">
+                <div class="header-content">
+                    <a href="index.html" class="logo">MALLY</a>
+                    <nav class="nav-links">
+                        <a href="index.html?category=Men%20Clothing">MEN</a>
+                        <a href="index.html?category=Women%20Clothing">WOMEN</a>
+                        <a href="index.html?category=Shoes">SHOES</a>
+                        <a href="index.html?category=Electronics">ELECTRONICS</a>
+                    </nav>
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" placeholder="Search for products...">
+                    </div>
+                    <div class="user-actions">
+                        <a href="cart.html" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount">0</span>
+                        </a>
+                        <a href="#" id="loginStatus">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <div class="main-container">
+                <div class="product-detail" id="productDetail">
+                    <!-- Product details will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="footer"></div>
+    </div>
+
+    <script src="../js/jQuery3.4.1.js"></script>
+    <script src="../js/content.js"></script>
+    <script src="../js/database.js"></script>
+    <script>
+        // Initialize database
+        DB.init();
+
+        // Check login status
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const loginStatus = document.getElementById('loginStatus');
+        
+        if (currentUser) {
+            loginStatus.textContent = `Hello, ${currentUser.name}`;
+            loginStatus.onclick = () => {
+                localStorage.removeItem('currentUser');
+                window.location.reload();
+            };
+        } else {
+            loginStatus.onclick = () => {
+                window.location.href = 'auth.html';
+            };
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const cart = DB.getCart();
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+        updateCartCount();
+
+        // Add search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
+        });
+
+        // Get product ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('id'));
+
+        // Selected size for products with size options
+        let selectedSize = null;
+
+        // Function to select size
+        function selectSize(button, size) {
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            selectedSize = size;
+            
+            // Enable add to cart button
+            document.querySelector('.add-to-cart').disabled = false;
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // Function to change main image
+        function changeMainImage(thumbnail, imageUrl) {
+            document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
+            thumbnail.classList.add('active');
+            document.getElementById('mainImage').src = imageUrl;
+        }
+
+        // Function to add product to cart
+        function addToCart() {
+            const product = DB.getProducts().find(p => p.id === productId);
+            
+            if (product.sizes && !selectedSize) {
+                document.getElementById('errorMessage').style.display = 'block';
+                return;
+            }
+
+            DB.addToCart(productId, selectedSize);
+            updateCartCount();
+            window.location.href = 'cart.html';
+        }
+
+        // Load product details
+        function loadProductDetails() {
+            const product = DB.getProducts().find(p => p.id === productId);
+            if (!product) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const container = document.getElementById('productDetail');
+            
+            let sizesHtml = '';
+            if (product.sizes) {
+                sizesHtml = `
+                    <div class="size-section">
+                        <span class="size-label">Select Size</span>
+                        <div class="size-options">
+                            ${product.sizes.map(size => `
+                                <button class="size-btn ${!product.availableSizes.includes(size) ? 'disabled' : ''}" 
+                                    onclick="selectSize(this, '${size}')"
+                                    ${!product.availableSizes.includes(size) ? 'disabled' : ''}>
+                                    ${size}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div class="product-images">
+                    <div class="thumbnail-container">
+                        <img src="${product.image}" 
+                            alt="${product.name}" 
+                            class="thumbnail active"
+                            onclick="changeMainImage(this, '${product.image}')"
+                        >
+                        ${product.additionalImages ? product.additionalImages.map(img => `
+                            <img src="${img}" 
+                                alt="${product.name}" 
+                                class="thumbnail"
+                                onclick="changeMainImage(this, '${img}')"
+                            >
+                        `).join('') : ''}
+                    </div>
+                    <div class="main-image-container">
+                        <img src="${product.image}" alt="${product.name}" class="main-image" id="mainImage">
+                        <div class="magnifier" id="magnifier"></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">${product.brand}</div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">฿${product.price.toLocaleString()}</div>
+                    <div class="product-description">${product.description || 'No description available.'}</div>
+                    ${sizesHtml}
+                    <button class="add-to-cart" 
+                            onclick="addToCart()"
+                            ${product.sizes ? 'disabled' : ''}>
+                        Add to Cart
+                    </button>
+                    <div class="error-message" id="errorMessage">Please select a size before adding to cart</div>
+                </div>
+            `;
+
+            // Setup image magnifier
+            const mainImage = document.getElementById('mainImage');
+            const magnifier = document.getElementById('magnifier');
+
+            mainImage.addEventListener('mousemove', (e) => {
+                const bounds = mainImage.getBoundingClientRect();
+                
+                // Get cursor position relative to image
+                const x = e.clientX - bounds.left;
+                const y = e.clientY - bounds.top;
+
+                // Calculate position within the actual image (accounting for scaling)
+                const naturalWidth = mainImage.naturalWidth;
+                const naturalHeight = mainImage.naturalHeight;
+                const displayWidth = mainImage.offsetWidth;
+                const displayHeight = mainImage.offsetHeight;
+
+                // Calculate scaling factors
+                const scaleX = naturalWidth / displayWidth;
+                const scaleY = naturalHeight / displayHeight;
+
+                // Calculate the actual position in the image
+                const imageX = (x * scaleX);
+                const imageY = (y * scaleY);
+
+                // Position magnifier
+                magnifier.style.display = 'block';
+                magnifier.style.left = (x - magnifier.offsetWidth / 2) + 'px';
+                magnifier.style.top = (y - magnifier.offsetHeight / 2) + 'px';
+
+                // Calculate zoom background position
+                const zoomX = (imageX / naturalWidth) * 100;
+                const zoomY = (imageY / naturalHeight) * 100;
+
+                // Set background
+                magnifier.style.backgroundImage = `url(${mainImage.src})`;
+                magnifier.style.backgroundPosition = `${zoomX}% ${zoomY}%`;
+                magnifier.style.backgroundSize = `${naturalWidth * 1.5}px ${naturalHeight * 1.5}px`;
+            });
+
+            mainImage.addEventListener('mouseleave', () => {
+                magnifier.style.display = 'none';
+            });
+        }
+
+        // Initial load
+        loadProductDetails();
+    </script>
+</body>
+</html> 

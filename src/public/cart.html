@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shopping Cart - MALLY</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <!-- Include jQuery -->
+    <script src="../js/jQuery3.4.1.js"></script>
+    <!-- Link your CSS files -->
+    <link rel="stylesheet" href="../../assets/css/header.css">
+    <link rel="stylesheet" href="../../assets/css/cart.css">
+    <link rel="stylesheet" href="../../assets/css/footer.css">
+    <!-- favicon -->
+    <link rel="icon" href="https://yt3.ggpht.com/a/AGF-l78km1YyNXmF0r3-0CycCA0HLA_i6zYn_8NZEg=s900-c-k-c0xffffffff-no-rj-mo" type="image/gif" sizes="16x16">
+    <!-- header links -->
+    <script src="https://kit.fontawesome.com/4a3b1f73a2.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .header {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+
+        .cart-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .cart-items {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 120px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-brand {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .item-name {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .item-size {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .remove-btn {
+            color: #ff3e6c;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 5px 0;
+        }
+
+        .remove-btn:hover {
+            text-decoration: underline;
+        }
+
+        .cart-summary {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            height: fit-content;
+        }
+
+        .summary-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ff3e6c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .checkout-btn:hover {
+            background: #ff527b;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+
+        .empty-cart h2 {
+            margin-bottom: 20px;
+        }
+
+        .continue-shopping {
+            color: #ff3e6c;
+            text-decoration: none;
+        }
+
+        .continue-shopping:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">MALLY</a>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="cart-items">
+            <h1 class="cart-title">Shopping Cart</h1>
+            <div id="cartItemsContainer">
+                <!-- Cart items will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <div class="cart-summary" id="cartSummary" style="display: none;">
+            <h2 class="summary-title">Order Summary</h2>
+            <div id="summaryContent">
+                <!-- Summary content will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Load footer content -->
+    <div id="footer"></div>
+
+    <!-- Link your JavaScript files -->
+    <script src="../js/cart.js"></script>
+    <script src="../js/database.js"></script>
+    <script>
+        // Load header and footer
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+
+        // Check login status
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'auth.html';
+        }
+
+        function displayCart() {
+            const cart = DB.getCart();
+            const products = DB.getProducts();
+            const cartItems = document.getElementById('cartItemsContainer');
+            const cartSummary = document.getElementById('cartSummary');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <h2>Your cart is empty</h2>
+                        <a href="index.html" class="continue-shopping">Continue Shopping</a>
+                    </div>
+                `;
+                cartSummary.style.display = 'none';
+                return;
+            }
+
+            let subtotal = 0;
+            cartItems.innerHTML = '';
+            
+            cart.forEach(item => {
+                const product = products.find(p => p.id === item.productId);
+                const itemTotal = product.price * item.quantity;
+                subtotal += itemTotal;
+
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="item-image">
+                    <div class="item-details">
+                        <div class="item-brand">${product.brand}</div>
+                        <div class="item-name">${product.name}</div>
+                        ${item.size ? `<div class="item-size">Size: ${item.size}</div>` : ''}
+                        <div class="item-price">${DB.formatPrice(product.price)}</div>
+                        <div class="item-quantity">
+                            <button class="quantity-btn" onclick="updateQuantity(${product.id}, '${item.size}', ${item.quantity - 1})">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity(${product.id}, '${item.size}', ${item.quantity + 1})">+</button>
+                        </div>
+                        <button class="remove-btn" onclick="removeItem(${product.id}, '${item.size}')">REMOVE</button>
+                    </div>
+                `;
+                cartItems.appendChild(cartItemElement);
+            });
+
+            cartSummary.style.display = 'block';
+            const tax = subtotal * 0.07; // 7% tax
+            const shipping = subtotal >= 2000 ? 0 : 50; // Free shipping over 2000 THB
+            const total = subtotal + tax + shipping;
+
+            document.getElementById('summaryContent').innerHTML = `
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>${DB.formatPrice(subtotal)}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (7%)</span>
+                    <span>${DB.formatPrice(tax)}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>${shipping === 0 ? 'FREE' : DB.formatPrice(shipping)}</span>
+                </div>
+                <div class="total-row">
+                    <span>Total</span>
+                    <span>${DB.formatPrice(total)}</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">PLACE ORDER</button>
+            `;
+        }
+
+        function updateQuantity(productId, size, newQuantity) {
+            if (newQuantity <= 0) {
+                removeItem(productId, size);
+                return;
+            }
+
+            DB.updateCartItemQuantity(productId, size, newQuantity);
+            displayCart();
+        }
+
+        function removeItem(productId, size) {
+            DB.removeFromCart(productId, size);
+            displayCart();
+        }
+
+        function checkout() {
+            alert('Thank you for your purchase!');
+            DB.clearCart();
+            window.location.href = 'index.html';
+        }
+
+        // Initial cart display
+        displayCart();
+    </script>
+</body>
+</html>
