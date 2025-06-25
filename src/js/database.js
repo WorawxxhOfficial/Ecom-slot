@@ -7,8 +7,8 @@ const DB = {
                 // Men's Clothing
                 {
                     id: 1,
-                    name: "Essential Cotton T-Shirt",
-                    brand: "MALLY Basic",
+                    name: "OVERSIZED FIT T-SHIRT",
+                    brand: "MALLY",
                     price: 590,
                     category: "Men Clothing",
                     image: "/assets/images/men/men 1.jpg",
@@ -22,9 +22,9 @@ const DB = {
                 },
                 {
                     id: 2,
-                    name: "Slim Fit Denim Jeans",
-                    brand: "MALLY Denim",
-                    price: 1590,
+                    name: "LOOSE-FIT PRINTED T-SHIRT",
+                    brand: "MALLY",
+                    price: 790,
                     category: "Men Clothing",
                     image: "/assets/images/men/men 2.jpg",
                     additionalImages: [
@@ -38,8 +38,8 @@ const DB = {
                 },
                 {
                     id: 3,
-                    name: "Classic Oxford Shirt",
-                    brand: "MALLY Formal",
+                    name: "Regular Fit Hoodie",
+                    brand: "MALLY",
                     price: 1290,
                     category: "Men Clothing",
                     image: "/assets/images/men/men 3.jpg",
@@ -54,9 +54,9 @@ const DB = {
                 },
                 {
                     id: 4,
-                    name: "Casual Bomber Jacket",
-                    brand: "MALLY Outerwear",
-                    price: 2490,
+                    name: "Loose Fit Parachute Trousers",
+                    brand: "MALLY",
+                    price: 1390,
                     category: "Men Clothing",
                     image: "/assets/images/men/men 4.jpg",
                     additionalImages: [
@@ -70,8 +70,8 @@ const DB = {
                 },
                 {
                     id: 5,
-                    name: "Polo Sport Shirt",
-                    brand: "MALLY Sport",
+                    name: "Loose Fit Utility trousers",
+                    brand: "MALLY",
                     price: 890,
                     category: "Men Clothing",
                     image: "/assets/images/men/men 5.jpg",
@@ -85,9 +85,9 @@ const DB = {
                 },
                 {
                     id: 6,
-                    name: "Cargo Pants",
-                    brand: "MALLY Casual",
-                    price: 1790,
+                    name: "Loose Fit Short-sleeved shirt",
+                    brand: "MALLY",
+                    price: 790,
                     category: "Men Clothing",
                     image: "/assets/images/men/men-6.jpg",
                     additionalImages: [
@@ -100,9 +100,9 @@ const DB = {
                 },
                 {
                     id: 7,
-                    name: "Hooded Sweatshirt",
-                    brand: "MALLY Basic",
-                    price: 1290,
+                    name: "Loose Fit Short-sleeved shirt",
+                    brand: "MALLY",
+                    price: 890,
                     category: "Men Clothing",
                     image: "/assets/images/men/men-7.jpg",
                     additionalImages: [
@@ -115,9 +115,9 @@ const DB = {
                 },
                 {
                     id: 8,
-                    name: "Formal Blazer",
-                    brand: "MALLY Formal",
-                    price: 3990,
+                    name: "Loose Fit Printed T-shirt",
+                    brand: "MALLY",
+                    price: 1090,
                     category: "Men Clothing",
                     image: "/assets/images/men/men-8.jpg",
                     additionalImages: [
@@ -131,9 +131,9 @@ const DB = {
                 // Women's Clothing
                 {
                     id: 9,
-                    name: "Floral Summer Dress",
-                    brand: "MALLY Women",
-                    price: 1590,
+                    name: "2-PIECE RIBBED JERSEY SET",
+                    brand: "MALLY",
+                    price: 390,
                     category: "Women Clothing",
                     image: "/assets/images/women/women 1.jpg",
                     additionalImages: [
@@ -146,9 +146,9 @@ const DB = {
                 },
                 {
                     id: 10,
-                    name: "High-Waist Yoga Pants",
-                    brand: "MALLY Active",
-                    price: 1290,
+                    name: "SQUARE-NECK PLAYSUIT",
+                    brand: "MALLY",
+                    price: 490,
                     category: "Women Clothing",
                     image: "/assets/images/women/women 2.jpg",
                     additionalImages: [
@@ -161,9 +161,9 @@ const DB = {
                 },
                 {
                     id: 11,
-                    name: "Silk Blouse",
-                    brand: "MALLY Elegant",
-                    price: 1890,
+                    name: "SQUARE-NECK RIBBED TOP",
+                    brand: "MALLY",
+                    price: 590,
                     category: "Women Clothing",
                     image: "/assets/images/women/women 3.jpg",
                     additionalImages: [
@@ -176,9 +176,9 @@ const DB = {
                 },
                 {
                     id: 12,
-                    name: "Denim Skirt",
-                    brand: "MALLY Denim",
-                    price: 1190,
+                    name: "SEERSUCKER DRAWSTRING TROUSERS",
+                    brand: "MALLY",
+                    price: 790,
                     category: "Women Clothing",
                     image: "/assets/images/women/women 4.jpg",
                     additionalImages: [
@@ -191,9 +191,9 @@ const DB = {
                 },
                 {
                     id: 13,
-                    name: "Knit Sweater",
-                    brand: "MALLY Knitwear",
-                    price: 1690,
+                    name: "WIDE LINEN-BLEND TROUSERS",
+                    brand: "MALLY",
+                    price: 1190,
                     category: "Women Clothing",
                     image: "/assets/images/women/women 5.jpg",
                     additionalImages: [
@@ -206,9 +206,9 @@ const DB = {
                 },
                 {
                     id: 14,
-                    name: "Wide Leg Pants",
-                    brand: "MALLY Trendy",
-                    price: 1890,
+                    name: "WIDE LINEN-BLEND TROUSERS",
+                    brand: "MALLY",
+                    price: 1190,
                     category: "Women Clothing",
                     image: "/assets/images/women/women 6.jpg",
                     additionalImages: [
@@ -221,9 +221,9 @@ const DB = {
                 },
                 {
                     id: 15,
-                    name: "Cropped Jacket",
-                    brand: "MALLY Style",
-                    price: 2290,
+                    name: "FRILL-TRIMMED STRAPPY TOP",
+                    brand: "MALLY",
+                    price: 490,
                     category: "Women Clothing",
                     image: "/assets/images/women/women 7.jpg",
                     additionalImages: [
@@ -236,9 +236,9 @@ const DB = {
                 },
                 {
                     id: 16,
-                    name: "Maxi Evening Dress",
-                    brand: "MALLY Elegant",
-                    price: 3990,
+                    name: "JACQUARD-WEAVE STRAPPY DRESS",
+                    brand: "MALLY",
+                    price: 590,
                     category: "Women Clothing",
                     image: "/assets/images/women/women 8.jpg",
                     additionalImages: [
